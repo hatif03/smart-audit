@@ -554,21 +554,24 @@ contract Vault {
                   label: "ADDRESS",
                   icon: WalletIcon,
                   desc: "Analyze deployed contracts",
-                  color: "neon-cyan"
+                  activeClasses: "bg-neon-cyan/20 border-2 border-neon-cyan text-neon-cyan",
+                  inactiveClasses: "hover:bg-cyber-gray/50 border-2 border-transparent text-cyber-text-muted group-hover:text-cyber-text-secondary"
                 },
                 {
                   id: "single-file",
                   label: "SINGLE_FILE",
                   icon: FileIcon,
                   desc: "Audit a single contract file",
-                  color: "neon-lime"
+                  activeClasses: "bg-neon-lime/20 border-2 border-neon-lime text-neon-lime",
+                  inactiveClasses: "hover:bg-cyber-gray/50 border-2 border-transparent text-cyber-text-muted group-hover:text-cyber-text-secondary"
                 },
                 {
                   id: "multi-files",
                   label: "MULTI_FILES",
                   icon: FilesIcon,
                   desc: "Analyze multiple contract files",
-                  color: "neon-magenta"
+                  activeClasses: "bg-neon-magenta/20 border-2 border-neon-magenta text-neon-magenta",
+                  inactiveClasses: "hover:bg-cyber-gray/50 border-2 border-transparent text-cyber-text-muted group-hover:text-cyber-text-secondary"
                 },
               ].map((tab) => (
                 <button
@@ -578,29 +581,19 @@ contract Vault {
                     flex-1 py-4 px-4 rounded-lg
                     transition-all duration-300 ease-out
                     group hover:scale-105
-                    ${
-                      activeTab === tab.id
-                        ? `bg-${tab.color}/20 border-2 border-${tab.color} shadow-${tab.color}`
-                        : "hover:bg-cyber-gray/50 border-2 border-transparent"
-                    }
+                    ${activeTab === tab.id ? tab.activeClasses : tab.inactiveClasses}
                   `}
                 >
                   <div className="flex flex-col items-center gap-3">
                     <tab.icon
                       className={`w-8 h-8 transition-all duration-300
-                        ${
-                          activeTab === tab.id
-                            ? `text-${tab.color} text-glow-${tab.color}`
-                            : "text-cyber-text-muted group-hover:text-cyber-text-secondary"
-                        }`}
+                        ${activeTab === tab.id ? tab.activeClasses : tab.inactiveClasses}
+                      `}
                     />
                     <span
                       className={`font-bold font-cyber-heading text-sm transition-all duration-300
-                      ${
-                        activeTab === tab.id
-                          ? `text-${tab.color} text-glow-${tab.color}`
-                          : "text-cyber-text-muted group-hover:text-cyber-text-secondary"
-                      }`}
+                        ${activeTab === tab.id ? tab.activeClasses : tab.inactiveClasses}
+                      `}
                     >
                       {tab.label}
                     </span>
