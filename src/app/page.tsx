@@ -5,34 +5,46 @@ import { SecurityIcon, GasIcon, CodeIcon, AIIcon, ComplianceIcon, ReportIcon } f
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#1A1A1A] flex flex-col">
-      <div className="absolute top-4 right-4 text-gray-400">
-        The ticker is ETH
+    <div className="min-h-screen bg-cyber-black flex flex-col relative overflow-hidden">
+      {/* Cyberpunk Grid Background */}
+      <div className="absolute inset-0 cyber-grid-bg"></div>
+      
+      {/* Scan Line Effect */}
+      <div className="absolute inset-0 scan-line"></div>
+      
+      {/* Floating Elements */}
+      <div className="absolute top-20 right-20 w-32 h-32 bg-neon-cyan/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute bottom-20 left-20 w-48 h-48 bg-neon-magenta/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+      <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-neon-lime/10 rounded-full blur-xl animate-pulse delay-2000"></div>
+      
+      <div className="absolute top-4 right-4 text-cyber-text-secondary font-cyber text-sm">
+        <span className="text-neon-cyan">[</span>SYSTEM<span className="text-neon-cyan">]</span> ETH_TICKER_ACTIVE
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 py-20 flex-1">
-        <div className="text-center mb-12">
-          <h1 className="text-6xl font-bold text-[#E5E5E5] mb-4">
-            Smart Contract <span className="text-[#FF8B3E]">Security</span>
+      <main className="max-w-7xl mx-auto px-4 py-20 flex-1 relative z-10">
+        <div className="text-center mb-16">
+          <h1 className="text-7xl font-bold font-cyber-heading mb-6">
+            <span className="text-glow-cyan">SMART</span> <span className="text-glow-magenta">CONTRACT</span>
+            <br />
+            <span className="text-glow-lime">SECURITY</span>
           </h1>
-          <p className="text-gray-400 text-xl">
-            Powered by AI, securing your blockchain future with real-time analysis
+          <p className="text-cyber-text-secondary text-xl font-cyber max-w-3xl mx-auto">
+            <span className="text-neon-cyan">[</span>AI_POWERED<span className="text-neon-cyan">]</span> 
+            Securing your blockchain future with real-time analysis
           </p>
         </div>
 
-        <div className="flex justify-center gap-6 mb-20">
+        <div className="flex justify-center gap-8 mb-20">
           <a
             href="/audit"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 
-                     bg-[#252526] rounded-lg text-[#FF8B3E] text-lg font-medium
-                     border border-[#FF8B3E]/20
-                     transition-all duration-300 ease-out
-                     hover:bg-[#FF8B3E]/10"
+            className="group relative inline-flex items-center gap-3 px-10 py-5 
+                     btn-cyber text-lg font-bold font-cyber-heading
+                     hover:scale-105 transition-all duration-300"
           >
-            <span className="relative z-10">Start Audit</span>
+            <span className="relative z-10 text-glow-cyan">[START_AUDIT]</span>
             <svg 
-              className="w-5 h-5 transform transition-transform duration-300 
-                         group-hover:translate-x-1" 
+              className="w-6 h-6 transform transition-transform duration-300 
+                         group-hover:translate-x-1 text-glow-cyan" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -40,7 +52,7 @@ export default function HomePage() {
               <path 
                 strokeLinecap="round" 
                 strokeLinejoin="round" 
-                strokeWidth={2} 
+                strokeWidth={3} 
                 d="M13 7l5 5m0 0l-5 5m5-5H6"
               />
             </svg>
@@ -50,44 +62,59 @@ export default function HomePage() {
             href="https://github.com/smart-support/smart-audit/blob/main/README.md"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 bg-[#252526] rounded-lg
-                     text-[#CCCCCC] text-lg font-medium
-                     border border-[#404040]
-                     transition-all duration-300
-                     hover:bg-[#2A2A2A] hover:border-[#505050]"
+            className="group relative inline-flex items-center gap-3 px-10 py-5
+                     bg-cyber-dark border-2 border-neon-magenta rounded-lg
+                     text-cyber-text-primary text-lg font-bold font-cyber-heading
+                     transition-all duration-300 hover:scale-105
+                     hover:shadow-neon-magenta"
           >
-            Documentation
+            <span className="text-glow-magenta">[DOCS]</span>
+            <svg 
+              className="w-6 h-6 text-glow-magenta" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={3} 
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#2A2A2A]">
-            <div className="w-12 h-12 bg-[#FF8B3E]/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-[#FF8B3E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="cyber-card p-8 group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-neon-cyan/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-cyan/30 transition-colors">
+              <svg className="w-8 h-8 text-neon-cyan text-glow-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Security Audit</h3>
-            <p className="text-gray-400">
-              Comprehensive vulnerability detection and security risk assessment.
+            <h3 className="text-2xl font-bold font-cyber-heading text-glow-cyan mb-4">SECURITY_AUDIT</h3>
+            <p className="text-cyber-text-secondary font-cyber leading-relaxed">
+              <span className="text-neon-cyan">[</span>COMPREHENSIVE<span className="text-neon-cyan">]</span> 
+              Vulnerability detection and security risk assessment
             </p>
           </div>
 
-          <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#2A2A2A]">
-            <div className="w-12 h-12 bg-[#FF8B3E]/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-[#FF8B3E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="cyber-card p-8 group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-neon-lime/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-lime/30 transition-colors">
+              <svg className="w-8 h-8 text-neon-lime text-glow-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Gas Optimization</h3>
-            <p className="text-gray-400">
-              Smart analysis for minimizing transaction costs and gas consumption.
+            <h3 className="text-2xl font-bold font-cyber-heading text-glow-lime mb-4">GAS_OPTIMIZATION</h3>
+            <p className="text-cyber-text-secondary font-cyber leading-relaxed">
+              <span className="text-neon-lime">[</span>SMART_ANALYSIS<span className="text-neon-lime">]</span> 
+              Minimizing transaction costs and gas consumption
             </p>
           </div>
 
-          <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#2A2A2A]">
-            <div className="w-12 h-12 bg-[#FF8B3E]/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-[#FF8B3E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="cyber-card p-8 group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-neon-magenta/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-magenta/30 transition-colors">
+              <svg className="w-8 h-8 text-neon-magenta text-glow-magenta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path 
                   strokeLinecap="round" 
                   strokeLinejoin="round" 
@@ -96,27 +123,29 @@ export default function HomePage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">AI Reports</h3>
-            <p className="text-gray-400">
-              Comprehensive audit reports powered by multiple AI models with detailed analysis.
+            <h3 className="text-2xl font-bold font-cyber-heading text-glow-magenta mb-4">AI_REPORTS</h3>
+            <p className="text-cyber-text-secondary font-cyber leading-relaxed">
+              <span className="text-neon-magenta">[</span>COMPREHENSIVE<span className="text-neon-magenta">]</span> 
+              Audit reports powered by multiple AI models
             </p>
           </div>
 
-          <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#2A2A2A]">
-            <div className="w-12 h-12 bg-[#FF8B3E]/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-[#FF8B3E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="cyber-card p-8 group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-neon-orange/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-orange/30 transition-colors">
+              <svg className="w-8 h-8 text-neon-orange text-glow-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Multi-Model Analysis</h3>
-            <p className="text-gray-400">
-              Combined insights from multiple AI models for enhanced security coverage.
+            <h3 className="text-2xl font-bold font-cyber-heading text-glow-orange mb-4">MULTI_MODEL_AI</h3>
+            <p className="text-cyber-text-secondary font-cyber leading-relaxed">
+              <span className="text-neon-orange">[</span>COMBINED_INSIGHTS<span className="text-neon-orange">]</span> 
+              Enhanced security coverage from multiple AI models
             </p>
           </div>
 
-          <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#2A2A2A]">
-            <div className="w-12 h-12 bg-[#FF8B3E]/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-[#FF8B3E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="cyber-card p-8 group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-neon-purple/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-neon-purple/30 transition-colors">
+              <svg className="w-8 h-8 text-neon-purple text-glow-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path 
                   strokeLinecap="round" 
                   strokeLinejoin="round" 
@@ -125,49 +154,53 @@ export default function HomePage() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Multi-Chain Support</h3>
-            <p className="text-gray-400">
-              Unified analysis across Ethereum, Base, Arbitrum and other chains.
+            <h3 className="text-2xl font-bold font-cyber-heading text-glow-purple mb-4">MULTI_CHAIN</h3>
+            <p className="text-cyber-text-secondary font-cyber leading-relaxed">
+              <span className="text-neon-purple">[</span>UNIFIED_ANALYSIS<span className="text-neon-purple">]</span> 
+              Ethereum, Base, Arbitrum and other chains
             </p>
           </div>
 
-          <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#2A2A2A]">
-            <div className="w-12 h-12 bg-[#FF8B3E]/10 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-[#FF8B3E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="cyber-card p-8 group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-cyber-danger/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-cyber-danger/30 transition-colors">
+              <svg className="w-8 h-8 text-cyber-danger text-glow-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Super Prompt</h3>
-            <p className="text-gray-400">
-              Enhanced analysis with specialized prompts for deeper security insights.
+            <h3 className="text-2xl font-bold font-cyber-heading text-glow-danger mb-4">SUPER_PROMPT</h3>
+            <p className="text-cyber-text-secondary font-cyber leading-relaxed">
+              <span className="text-cyber-danger">[</span>ENHANCED_ANALYSIS<span className="text-cyber-danger">]</span> 
+              Specialized prompts for deeper security insights
             </p>
           </div>
         </div>
       </main>
 
-      <footer className="border-t border-[#2A2A2A] mt-auto">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-center gap-4 text-sm text-gray-400">
-            <div>
-              © 2024 smart-support. Licensed under{" "}
+      <footer className="border-t-2 border-neon-cyan mt-auto bg-cyber-dark/50 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex items-center justify-center gap-6 text-sm font-cyber">
+            <div className="text-cyber-text-secondary">
+              <span className="text-neon-cyan">[</span>COPYRIGHT<span className="text-neon-cyan">]</span> 
+              2024 smart-support. Licensed under{" "}
               <a
                 href="https://github.com/smart-support/smart-audit/blob/main/LICENSE"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#FF8B3E] hover:text-[#FF8B3E]/80 transition-colors"
+                className="text-neon-cyan hover:text-glow-cyan transition-all duration-300"
               >
                 AGPL-3.0
               </a>
             </div>
+            <div className="w-px h-6 bg-neon-cyan"></div>
             <a
               href="https://github.com/smart-support/smart-audit"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1 text-gray-400 hover:text-gray-300 transition-colors"
+              className="group p-2 text-cyber-text-secondary hover:text-glow-cyan transition-all duration-300"
               aria-label="View on GitHub"
             >
               <svg
-                className="w-5 h-5"
+                className="w-6 h-6 group-hover:scale-110 transition-transform duration-300"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"

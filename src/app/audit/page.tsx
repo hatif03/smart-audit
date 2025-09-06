@@ -512,83 +512,99 @@ contract Vault {
   };
 
   return (
-    <div className="min-h-screen bg-[#1A1A1A]">
-      <div className="absolute top-4 right-4 text-gray-400">
-        The ticker is ETH
+    <div className="min-h-screen bg-cyber-black relative overflow-hidden">
+      {/* Cyberpunk Grid Background */}
+      <div className="absolute inset-0 cyber-grid-bg"></div>
+      
+      {/* Scan Line Effect */}
+      <div className="absolute inset-0 scan-line"></div>
+      
+      {/* Floating Elements */}
+      <div className="absolute top-20 right-20 w-24 h-24 bg-neon-cyan/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute bottom-20 left-20 w-32 h-32 bg-neon-magenta/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+      
+      <div className="absolute top-4 right-4 text-cyber-text-secondary font-cyber text-sm">
+        <span className="text-neon-cyan">[</span>SYSTEM<span className="text-neon-cyan">]</span> ETH_TICKER_ACTIVE
       </div>
 
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
+      <main className="container mx-auto px-4 py-8 max-w-4xl relative z-10">
         <div className="mb-16 text-center">
-          <h1 className="text-5xl font-bold text-[#E5E5E5] mb-4">
-            Smart Contract <span className="text-[#FF8B3E]">Security</span>
+          <h1 className="text-6xl font-bold font-cyber-heading mb-6">
+            <span className="text-glow-cyan">SMART</span> <span className="text-glow-magenta">CONTRACT</span>
+            <br />
+            <span className="text-glow-lime">SECURITY</span>
           </h1>
-          <p className="text-gray-400 text-lg">
-            Powered by AI, securing your blockchain future with real-time
-            analysis
+          <p className="text-cyber-text-secondary text-lg font-cyber">
+            <span className="text-neon-cyan">[</span>AI_POWERED<span className="text-neon-cyan">]</span> 
+            Securing your blockchain future with real-time analysis
           </p>
         </div>
 
         <div className="max-w-2xl mx-auto mb-12">
-          <p className="text-gray-400 text-center mb-6">
+          <p className="text-cyber-text-secondary text-center mb-8 font-cyber">
+            <span className="text-neon-cyan">[</span>SELECT_MODE<span className="text-neon-cyan">]</span> 
             Choose your preferred method to analyze smart contracts
           </p>
 
-          <div className="bg-gradient-to-r from-[#1E1E1E] via-[#252526] to-[#1E1E1E] p-1 rounded-xl">
-            <div className="bg-[#1A1A1A]/60 rounded-lg p-1 flex gap-1">
+          <div className="cyber-card p-2">
+            <div className="bg-cyber-black/60 rounded-lg p-2 flex gap-2">
               {[
                 {
                   id: "address",
-                  label: "Address",
+                  label: "ADDRESS",
                   icon: WalletIcon,
                   desc: "Analyze deployed contracts",
+                  color: "neon-cyan"
                 },
                 {
                   id: "single-file",
-                  label: "Single File",
+                  label: "SINGLE_FILE",
                   icon: FileIcon,
                   desc: "Audit a single contract file",
+                  color: "neon-lime"
                 },
                 {
                   id: "multi-files",
-                  label: "Multi Files",
+                  label: "MULTI_FILES",
                   icon: FilesIcon,
                   desc: "Analyze multiple contract files",
+                  color: "neon-magenta"
                 },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabType)}
                   className={`
-                    flex-1 py-3 px-4 rounded-lg
+                    flex-1 py-4 px-4 rounded-lg
                     transition-all duration-300 ease-out
-                    group hover:bg-[#252526]
+                    group hover:scale-105
                     ${
                       activeTab === tab.id
-                        ? "bg-[#252526] shadow-lg"
-                        : "hover:bg-[#252526]/50"
+                        ? `bg-${tab.color}/20 border-2 border-${tab.color} shadow-${tab.color}`
+                        : "hover:bg-cyber-gray/50 border-2 border-transparent"
                     }
                   `}
                 >
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="flex flex-col items-center gap-3">
                     <tab.icon
-                      className={`w-6 h-6 transition-colors duration-300
+                      className={`w-8 h-8 transition-all duration-300
                         ${
                           activeTab === tab.id
-                            ? "text-[#FF8B3E]"
-                            : "text-gray-400 group-hover:text-gray-300"
+                            ? `text-${tab.color} text-glow-${tab.color}`
+                            : "text-cyber-text-muted group-hover:text-cyber-text-secondary"
                         }`}
                     />
                     <span
-                      className={`font-medium transition-colors duration-300
+                      className={`font-bold font-cyber-heading text-sm transition-all duration-300
                       ${
                         activeTab === tab.id
-                          ? "text-[#FF8B3E]"
-                          : "text-gray-400 group-hover:text-gray-300"
+                          ? `text-${tab.color} text-glow-${tab.color}`
+                          : "text-cyber-text-muted group-hover:text-cyber-text-secondary"
                       }`}
                     >
                       {tab.label}
                     </span>
-                    <span className="text-xs text-gray-500 group-hover:text-gray-400">
+                    <span className="text-xs text-cyber-text-muted group-hover:text-cyber-text-secondary font-cyber text-center">
                       {tab.desc}
                     </span>
                   </div>
@@ -598,20 +614,16 @@ contract Vault {
           </div>
         </div>
 
-        <div
-          className="bg-gradient-to-br from-[#252526] to-[#1E1E1E] rounded-xl p-8 mb-8 border border-[#333333]/50 relative overflow-hidden
-            before:absolute before:inset-0 before:p-[1px] before:-m-[1px] before:bg-gradient-to-r before:from-smart-orange/0 before:via-smart-orange/20 before:to-smart-orange/0 before:rounded-xl before:-z-10
-            after:absolute after:inset-0 after:p-[1px] after:-m-[1px] after:bg-gradient-to-b after:from-white/10 after:via-white/0 after:to-white/5 after:rounded-xl after:-z-10"
-        >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-smart-orange/0 via-smart-orange/30 to-smart-orange/0" />
+        <div className="cyber-card p-8 mb-8 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon-cyan/0 via-neon-cyan/50 to-neon-cyan/0" />
 
-          <div className="mb-6">
-            <h2 className="text-2xl font-medium text-white mb-2">
-              {activeTab === "address" && "Enter Contract Address"}
-              {activeTab === "single-file" && "Upload Contract File"}
-              {activeTab === "multi-files" && "Upload Contract Files"}
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold font-cyber-heading text-glow-cyan mb-4">
+              {activeTab === "address" && "[ENTER_CONTRACT_ADDRESS]"}
+              {activeTab === "single-file" && "[UPLOAD_CONTRACT_FILE]"}
+              {activeTab === "multi-files" && "[UPLOAD_CONTRACT_FILES]"}
             </h2>
-            <p className="text-gray-400">
+            <p className="text-cyber-text-secondary font-cyber text-lg">
               {activeTab === "address" &&
                 "Enter the deployed contract address to start analysis"}
               {activeTab === "single-file" &&
@@ -622,56 +634,39 @@ contract Vault {
           </div>
 
           {activeTab === "address" && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <input
                 type="text"
                 value={address}
                 onChange={handleAddressChange}
-                placeholder="Enter contract address (0x...)"
-                className="flex-1 h-11 bg-[#1A1A1A] border border-[#333333] rounded-lg px-4
-                         text-[#E5E5E5] placeholder-gray-500 
-                         focus:outline-none focus:border-[#505050]
-                         hover:border-[#404040]
-                         focus:ring-1 focus:ring-[#505050]
-                         transition-[border,box-shadow]
-                         duration-200 ease-in-out text-base"
+                placeholder="0x..."
+                className="flex-1 h-14 bg-cyber-black border-2 border-neon-cyan rounded-lg px-6
+                         text-cyber-text-primary placeholder-cyber-text-muted font-cyber
+                         focus:outline-none focus:border-neon-cyan focus:shadow-neon-cyan
+                         hover:border-neon-cyan/70
+                         transition-all duration-300 text-lg
+                         focus:bg-cyber-dark/50"
               />
               <button
                 onClick={handleCheck}
                 disabled={loading}
-                className="h-11 inline-flex items-center gap-2 px-5
-                         bg-[#1E1E1E] text-smart-orange text-base font-normal
-                         border border-[#333333] rounded-lg
-                         transition-all duration-300
-                         hover:bg-smart-orange/10 hover:border-smart-orange/50
-                         whitespace-nowrap
-                         disabled:opacity-50 disabled:cursor-not-allowed"
+                className="h-14 inline-flex items-center gap-3 px-8
+                         btn-cyber text-lg font-bold font-cyber-heading
+                         hover:scale-105 transition-all duration-300
+                         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {loading ? (
                   <>
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="none"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    <span>Checking...</span>
+                    <div className="relative w-6 h-6">
+                      <div className="absolute inset-0 border-2 border-neon-cyan border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                    <span className="text-glow-cyan">[SCANNING]</span>
                   </>
                 ) : (
                   <>
-                    <span>Check Contract</span>
+                    <span className="text-glow-cyan">[CHECK_CONTRACT]</span>
                     <svg
-                      className="w-4 h-4"
+                      className="w-6 h-6 text-glow-cyan"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -679,7 +674,7 @@ contract Vault {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={3}
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
@@ -809,16 +804,13 @@ contract Vault {
 
               <button
                 onClick={() => setIsAIConfigModalOpen(true)}
-                className="self-end h-11 inline-flex items-center gap-2 px-5
-                         bg-[#1E1E1E] text-smart-orange text-base font-normal
-                         border border-[#333333] rounded-lg
-                         transition-all duration-300
-                         hover:bg-smart-orange/10 hover:border-smart-orange/50
-                         whitespace-nowrap"
+                className="self-end h-14 inline-flex items-center gap-3 px-8
+                         btn-cyber text-lg font-bold font-cyber-heading
+                         hover:scale-105 transition-all duration-300"
               >
-                <span>Analyze Contract</span>
+                <span className="text-glow-cyan">[ANALYZE_CONTRACT]</span>
                 <svg
-                  className="w-4 h-4"
+                  className="w-6 h-6 text-glow-cyan"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -826,7 +818,7 @@ contract Vault {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={3}
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
@@ -875,19 +867,20 @@ contract Vault {
           )}
 
           {activeTab === "multi-files" && (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               <div 
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
-                className="border border-dashed border-[#333333] rounded-lg p-8 bg-[#1A1A1A] hover:border-[#505050] transition-colors duration-200"
+                className="border-2 border-dashed border-neon-magenta rounded-lg p-12 bg-cyber-black/50 hover:border-neon-magenta/70 hover:bg-cyber-dark/30 transition-all duration-300 group"
               >
-                <div className="flex flex-col items-center gap-3">
-                  <FilesIcon className="w-12 h-12 text-gray-500" />
+                <div className="flex flex-col items-center gap-6">
+                  <FilesIcon className="w-16 h-16 text-neon-magenta text-glow-magenta group-hover:scale-110 transition-transform duration-300" />
                   <div className="text-center">
-                    <p className="text-gray-300 mb-1">
-                      Drag and drop contract files here
+                    <p className="text-cyber-text-primary text-xl font-cyber mb-2">
+                      <span className="text-neon-magenta">[</span>DRAG_AND_DROP<span className="text-neon-magenta">]</span>
+                      <br />Contract files here
                     </p>
-                    <p className="text-gray-500 text-sm">or</p>
+                    <p className="text-cyber-text-muted font-cyber">or</p>
                   </div>
                   <label className="cursor-pointer">
                     <input
@@ -898,40 +891,43 @@ contract Vault {
                       onChange={handleFileSelect}
                     />
                     <span
-                      className="h-9 inline-flex items-center gap-2 px-4
-                      bg-[#1E1E1E] text-smart-orange text-sm font-normal
-                      border border-[#333333] rounded-lg
-                      transition-all duration-300
-                      hover:bg-smart-orange/10 hover:border-smart-orange/50
+                      className="h-12 inline-flex items-center gap-3 px-6
+                      btn-cyber text-base font-bold font-cyber-heading
+                      hover:scale-105 transition-all duration-300
                       cursor-pointer"
                     >
-                      Browse files
+                      <span className="text-glow-magenta">[BROWSE_FILES]</span>
+                      <svg className="w-5 h-5 text-glow-magenta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
                     </span>
                   </label>
                 </div>
               </div>
 
               {uploadedFiles.length > 0 && (
-                <div className="flex flex-col gap-2">
-                  <div className="text-sm text-gray-400">Selected files:</div>
-                  <div className="space-y-2">
+                <div className="flex flex-col gap-4">
+                  <div className="text-cyber-text-secondary font-cyber">
+                    <span className="text-neon-magenta">[</span>SELECTED_FILES<span className="text-neon-magenta">]</span>
+                  </div>
+                  <div className="space-y-3">
                     {uploadedFiles.map((file) => (
                       <div
                         key={file.path}
-                        className="flex items-center justify-between p-3 bg-[#1A1A1A] border border-[#333333] rounded-lg"
+                        className="flex items-center justify-between p-4 bg-cyber-dark border-2 border-neon-magenta/30 rounded-lg hover:border-neon-magenta/60 transition-all duration-300"
                       >
-                        <div className="flex items-center gap-2">
-                          <FileIcon className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-300 text-sm">
+                        <div className="flex items-center gap-3">
+                          <FileIcon className="w-5 h-5 text-neon-magenta text-glow-magenta" />
+                          <span className="text-cyber-text-primary font-cyber">
                             {file.name}
                           </span>
                         </div>
                         <button
                           onClick={() => handleRemoveFile(file.path)}
-                          className="text-gray-500 hover:text-gray-300"
+                          className="text-cyber-text-muted hover:text-cyber-danger transition-colors duration-300 p-2 hover:bg-cyber-danger/10 rounded"
                         >
                           <svg
-                            className="w-4 h-4"
+                            className="w-5 h-5"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -954,16 +950,13 @@ contract Vault {
                 <>
                   <button
                     onClick={() => setIsAIConfigModalOpen(true)}
-                    className="self-end h-11 inline-flex items-center gap-2 px-5
-                             bg-[#1E1E1E] text-smart-orange text-base font-normal
-                             border border-[#333333] rounded-lg
-                             transition-all duration-300
-                             hover:bg-smart-orange/10 hover:border-smart-orange/50
-                             whitespace-nowrap"
+                    className="self-end h-14 inline-flex items-center gap-3 px-8
+                             btn-cyber text-lg font-bold font-cyber-heading
+                             hover:scale-105 transition-all duration-300"
                   >
-                    <span>Analyze Contract</span>
+                    <span className="text-glow-cyan">[ANALYZE_CONTRACT]</span>
                     <svg
-                      className="w-4 h-4"
+                      className="w-6 h-6 text-glow-cyan"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -971,33 +964,33 @@ contract Vault {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={3}
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
                   </button>
 
                   {analysisFiles.length > 0 && (
-                    <div className="border-t border-[#333333] mt-4 pt-4">
-                      <h3 className="text-gray-300 text-sm font-medium mb-2">
-                        Analysis Reports:
+                    <div className="border-t-2 border-neon-cyan mt-6 pt-6">
+                      <h3 className="text-cyber-text-primary text-lg font-bold font-cyber-heading mb-4">
+                        <span className="text-neon-cyan">[</span>ANALYSIS_REPORTS<span className="text-neon-cyan">]</span>
                       </h3>
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         {analysisFiles.map((file) => (
                           <div
                             key={file.path}
-                            className="bg-[#252526] p-3 rounded-lg border border-[#333333]"
+                            className="cyber-card p-4 hover:scale-105 transition-all duration-300"
                           >
                             <div className="flex items-center justify-between">
-                              <span className="text-gray-300 text-sm">
+                              <span className="text-cyber-text-primary font-cyber">
                                 {file.name}
                               </span>
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-3">
                                 <button
                                   onClick={() =>
                                     handleViewReport(file.content, file.name)
                                   }
-                                  className="text-gray-400 text-sm hover:text-gray-300 flex items-center gap-1 px-2 py-1 rounded hover:bg-[#333333] transition-colors duration-150"
+                                  className="text-neon-cyan hover:text-glow-cyan flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neon-cyan/10 transition-all duration-300 font-cyber text-sm"
                                 >
                                   <svg
                                     className="w-4 h-4"
@@ -1018,11 +1011,11 @@ contract Vault {
                                       d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                                     />
                                   </svg>
-                                  View
+                                  [VIEW]
                                 </button>
                                 <button
                                   onClick={() => handleDownloadReport(file)}
-                                  className="text-gray-400 text-sm hover:text-gray-300 flex items-center gap-1 px-2 py-1 rounded hover:bg-[#333333] transition-colors duration-150"
+                                  className="text-neon-lime hover:text-glow-lime flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neon-lime/10 transition-all duration-300 font-cyber text-sm"
                                 >
                                   <svg
                                     className="w-4 h-4"
@@ -1037,11 +1030,11 @@ contract Vault {
                                       d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                                     />
                                   </svg>
-                                  Download
+                                  [DOWNLOAD]
                                 </button>
                                 <button
                                   onClick={() => handleRemoveReport(file.path)}
-                                  className="text-gray-400 hover:text-red-400 p-1 rounded hover:bg-[#333333] transition-colors duration-150"
+                                  className="text-cyber-danger hover:text-glow-danger p-2 rounded-lg hover:bg-cyber-danger/10 transition-all duration-300"
                                 >
                                   <svg
                                     className="w-4 h-4"
@@ -1074,34 +1067,34 @@ contract Vault {
               />
 
               {isAnalyzing && (
-                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-                  <div className="bg-[#1E1E1E] rounded-lg p-8 flex flex-col items-center">
-                    <div className="relative w-24 h-24 mb-4">
-                      <div className="absolute inset-0 border-4 border-t-[#FF8B3E] border-r-[#FF8B3E]/50 border-b-[#FF8B3E]/30 border-l-[#FF8B3E]/10 rounded-full animate-spin" />
-                      <div className="absolute inset-2 bg-[#1E1E1E] rounded-full flex items-center justify-center">
+                <div className="fixed inset-0 bg-cyber-black/90 backdrop-blur-md z-50 flex items-center justify-center">
+                  <div className="cyber-card p-12 flex flex-col items-center max-w-md mx-4">
+                    <div className="relative w-32 h-32 mb-8">
+                      <div className="absolute inset-0 border-4 border-t-neon-cyan border-r-neon-cyan/50 border-b-neon-cyan/30 border-l-neon-cyan/10 rounded-full animate-spin" />
+                      <div className="absolute inset-4 bg-cyber-dark rounded-full flex items-center justify-center">
                         <Image
                           src="/mush.png"
                           alt="Loading"
-                          width={40}
-                          height={40}
+                          width={48}
+                          height={48}
                           className="animate-bounce-slow"
                         />
                       </div>
                     </div>
-                    <p className="text-[#E5E5E5] text-lg mb-2">
-                      Analyzing Contract
+                    <p className="text-cyber-text-primary text-2xl font-bold font-cyber-heading mb-3 text-glow-cyan">
+                      [ANALYZING_CONTRACT]
                     </p>
-                    <p className="text-gray-400 text-sm mb-4">
+                    <p className="text-cyber-text-secondary text-lg font-cyber mb-8 text-center">
+                      <span className="text-neon-cyan">[</span>PROCESSING<span className="text-neon-cyan">]</span> 
                       This may take a few moments...
                     </p>
                     <button
                       onClick={handleCancelAnalysis}
-                      className="px-4 py-2 bg-[#252526] text-[#FF8B3E] rounded-md 
-                               border border-[#FF8B3E]/20
-                               hover:bg-[#FF8B3E]/10 transition-colors
-                               font-medium"
+                      className="px-8 py-4 bg-cyber-danger/20 text-cyber-danger border-2 border-cyber-danger rounded-lg
+                               hover:bg-cyber-danger/30 hover:text-glow-danger transition-all duration-300
+                               font-bold font-cyber-heading hover:scale-105"
                     >
-                      Cancel Analysis
+                      [CANCEL_ANALYSIS]
                     </button>
                   </div>
                 </div>

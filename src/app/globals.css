@@ -3,18 +3,202 @@
 @tailwind utilities;
 
 :root {
-  --background: #1A1A1A;
-  --foreground: #FFFFFF;
-  --primary: #FF8B3E;
-  --primary-foreground: #FFFFFF;
-  --secondary: #232323;
-  --border: #333333;
+  /* Cyberpunk Color Variables */
+  --cyber-black: #0A0A0A;
+  --cyber-dark: #1A1A1A;
+  --cyber-gray: #2A2A2A;
+  --cyber-light-gray: #404040;
+  
+  /* Neon Accents */
+  --neon-cyan: #00FFFF;
+  --neon-magenta: #FF00FF;
+  --neon-lime: #00FF00;
+  --neon-orange: #FF6600;
+  --neon-purple: #8A2BE2;
+  --neon-pink: #FF1493;
+  
+  /* Status Colors */
+  --cyber-success: #00FF88;
+  --cyber-warning: #FFD700;
+  --cyber-danger: #FF0040;
+  --cyber-info: #00BFFF;
+  
+  /* Text Colors */
+  --cyber-text-primary: #FFFFFF;
+  --cyber-text-secondary: #B0B0B0;
+  --cyber-text-muted: #808080;
+  
+  /* Legacy variables for compatibility */
+  --background: var(--cyber-black);
+  --foreground: var(--cyber-text-primary);
+  --primary: var(--neon-cyan);
+  --primary-foreground: var(--cyber-black);
+  --secondary: var(--cyber-dark);
+  --border: var(--neon-cyan);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  color: var(--cyber-text-primary);
+  background: var(--cyber-black);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  overflow-x: hidden;
+}
+
+/* Cyberpunk Grid Background */
+.cyber-grid-bg {
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 0;
+  position: relative;
+}
+
+.cyber-grid-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+  animation: grid-move 20s linear infinite;
+  pointer-events: none;
+}
+
+/* Neon Glow Effects */
+.neon-glow {
+  box-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor,
+    inset 0 0 5px currentColor;
+}
+
+.neon-border {
+  border: 2px solid currentColor;
+  box-shadow: 
+    0 0 10px currentColor,
+    inset 0 0 10px currentColor;
+}
+
+/* Text Glow Effects */
+.text-glow-cyan {
+  text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF, 0 0 15px #00FFFF;
+}
+
+.text-glow-magenta {
+  text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 15px #FF00FF;
+}
+
+.text-glow-lime {
+  text-shadow: 0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 15px #00FF00;
+}
+
+.text-glow-danger {
+  text-shadow: 0 0 5px #FF0040, 0 0 10px #FF0040, 0 0 15px #FF0040;
+}
+
+/* Cyberpunk Button Styles */
+.btn-cyber {
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-cyber::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--neon-cyan);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.btn-cyber:hover::before {
+  left: 0;
+}
+
+.btn-cyber:hover {
+  color: var(--cyber-black);
+  box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+/* Cyberpunk Card Styles */
+.cyber-card {
+  background: var(--cyber-dark);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cyber-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+  animation: scan-sweep 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cyber-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Scan Line Effect */
+.scan-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  animation: scan-line 3s linear infinite;
+  pointer-events: none;
+}
+
+/* Loading Sweep Effect */
+.loading-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-sweep::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+  animation: loading-sweep 1.5s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* Smooth scrolling */
@@ -22,50 +206,72 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Cyberpunk Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--secondary);
+  background: var(--cyber-black);
+  border: 1px solid var(--neon-cyan);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 5px;
+  background: var(--neon-cyan);
+  border-radius: 6px;
+  box-shadow: 0 0 5px var(--neon-cyan);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--neon-magenta);
+  box-shadow: 0 0 10px var(--neon-magenta);
 }
 
 @keyframes bounce-slow {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-10px);
   }
+}
+
+@keyframes scan-sweep {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes grid-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}
+
+@keyframes loading-sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
 .animate-bounce-slow {
   animation: bounce-slow 3s infinite ease-in-out;
 }
 
-/* Prism.js theme customization */
+/* Cyberpunk Prism.js theme customization */
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #6272a4;
+  color: #00FFFF;
+  text-shadow: 0 0 5px #00FFFF;
 }
 
 .token.punctuation {
-  color: #f8f8f2;
+  color: #FFFFFF;
 }
 
 .token.property,
@@ -73,12 +279,14 @@ html {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #ff79c6;
+  color: #FF00FF;
+  text-shadow: 0 0 5px #FF00FF;
 }
 
 .token.boolean,
 .token.number {
-  color: #bd93f9;
+  color: #00FF00;
+  text-shadow: 0 0 5px #00FF00;
 }
 
 .token.selector,
@@ -87,7 +295,8 @@ html {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #50fa7b;
+  color: #00FF88;
+  text-shadow: 0 0 5px #00FF88;
 }
 
 .token.operator,
@@ -96,23 +305,26 @@ html {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-  color: #f8f8f2;
+  color: #FFFFFF;
 }
 
 .token.atrule,
 .token.attr-value,
 .token.function,
 .token.class-name {
-  color: #f1fa8c;
+  color: #FFD700;
+  text-shadow: 0 0 5px #FFD700;
 }
 
 .token.keyword {
-  color: #ff79c6;
+  color: #FF0040;
+  text-shadow: 0 0 5px #FF0040;
 }
 
 .token.regex,
 .token.important {
-  color: #ffb86c;
+  color: #FF6600;
+  text-shadow: 0 0 5px #FF6600;
 }
 
 .token.important,
@@ -128,24 +340,39 @@ html {
   cursor: help;
 }
 
-/* Code block styling */
+/* Cyberpunk Code block styling */
 pre[class*="language-"] {
-  background: #2A2A2A !important;
-  border-radius: 0.5rem;
+  background: var(--cyber-black) !important;
+  border: 2px solid var(--neon-cyan) !important;
+  border-radius: 8px;
   margin: 0 !important;
   overflow: auto;
   padding: 1rem !important;
   font-size: 14px;
   line-height: 1.5;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  position: relative;
+}
+
+pre[class*="language-"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+  animation: scan-sweep 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
 code[class*="language-"] {
   text-shadow: none !important;
   padding: 0;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 }
 
-/* Line Numbers */
+/* Cyberpunk Line Numbers */
 pre[class*="language-"].line-numbers {
   position: relative;
   padding-left: 3.8em !important;
@@ -164,9 +391,8 @@ pre[class*="language-"].line-numbers>code {
   font-size: 100%;
   left: -3.8em;
   width: 3em;
-  /* works for line-numbers below 1000 lines */
   letter-spacing: -1px;
-  border-right: 1px solid #333;
+  border-right: 2px solid var(--neon-cyan);
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -181,10 +407,12 @@ pre[class*="language-"].line-numbers>code {
 
 .line-numbers-rows>span:before {
   content: counter(linenumber);
-  color: #666;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan);
   display: block;
   padding-right: 0.8em;
   text-align: right;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* Code container styles */
@@ -220,10 +448,10 @@ pre[class*="language-"].line-numbers.whitespace-pre-wrap code {
   display: block;
 }
 
-/* Custom scrollbar for FileExplorer */
+/* Cyberpunk scrollbar for FileExplorer */
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: #424242 #252526;
+  scrollbar-color: var(--neon-cyan) var(--cyber-black);
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -232,22 +460,25 @@ pre[class*="language-"].line-numbers.whitespace-pre-wrap code {
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
-  background: #252526;
+  background: var(--cyber-black);
+  border: 1px solid var(--neon-cyan);
   transition: background-color 0.2s;
 }
 
 .scrollbar-thin::-webkit-scrollbar-track:hover {
-  background: #2A2A2A;
+  background: var(--cyber-dark);
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #424242;
+  background: var(--neon-cyan);
   border-radius: 4px;
-  border: 2px solid #252526;
+  border: 1px solid var(--cyber-black);
+  box-shadow: 0 0 5px var(--neon-cyan);
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: #4D4D4D;
+  background: var(--neon-magenta);
+  box-shadow: 0 0 10px var(--neon-magenta);
 }
 
 /* Ensure scrollbar is visible on hover */
