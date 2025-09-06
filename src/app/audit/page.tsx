@@ -600,10 +600,10 @@ contract Vault {
 
         <div
           className="bg-gradient-to-br from-[#252526] to-[#1E1E1E] rounded-xl p-8 mb-8 border border-[#333333]/50 relative overflow-hidden
-            before:absolute before:inset-0 before:p-[1px] before:-m-[1px] before:bg-gradient-to-r before:from-mush-orange/0 before:via-mush-orange/20 before:to-mush-orange/0 before:rounded-xl before:-z-10
+            before:absolute before:inset-0 before:p-[1px] before:-m-[1px] before:bg-gradient-to-r before:from-smart-orange/0 before:via-smart-orange/20 before:to-smart-orange/0 before:rounded-xl before:-z-10
             after:absolute after:inset-0 after:p-[1px] after:-m-[1px] after:bg-gradient-to-b after:from-white/10 after:via-white/0 after:to-white/5 after:rounded-xl after:-z-10"
         >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-mush-orange/0 via-mush-orange/30 to-mush-orange/0" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-smart-orange/0 via-smart-orange/30 to-smart-orange/0" />
 
           <div className="mb-6">
             <h2 className="text-2xl font-medium text-white mb-2">
@@ -640,10 +640,10 @@ contract Vault {
                 onClick={handleCheck}
                 disabled={loading}
                 className="h-11 inline-flex items-center gap-2 px-5
-                         bg-[#1E1E1E] text-mush-orange text-base font-normal
+                         bg-[#1E1E1E] text-smart-orange text-base font-normal
                          border border-[#333333] rounded-lg
                          transition-all duration-300
-                         hover:bg-mush-orange/10 hover:border-mush-orange/50
+                         hover:bg-smart-orange/10 hover:border-smart-orange/50
                          whitespace-nowrap
                          disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -810,10 +810,10 @@ contract Vault {
               <button
                 onClick={() => setIsAIConfigModalOpen(true)}
                 className="self-end h-11 inline-flex items-center gap-2 px-5
-                         bg-[#1E1E1E] text-mush-orange text-base font-normal
+                         bg-[#1E1E1E] text-smart-orange text-base font-normal
                          border border-[#333333] rounded-lg
                          transition-all duration-300
-                         hover:bg-mush-orange/10 hover:border-mush-orange/50
+                         hover:bg-smart-orange/10 hover:border-smart-orange/50
                          whitespace-nowrap"
               >
                 <span>Analyze Contract</span>
@@ -899,10 +899,10 @@ contract Vault {
                     />
                     <span
                       className="h-9 inline-flex items-center gap-2 px-4
-                      bg-[#1E1E1E] text-mush-orange text-sm font-normal
+                      bg-[#1E1E1E] text-smart-orange text-sm font-normal
                       border border-[#333333] rounded-lg
                       transition-all duration-300
-                      hover:bg-mush-orange/10 hover:border-mush-orange/50
+                      hover:bg-smart-orange/10 hover:border-smart-orange/50
                       cursor-pointer"
                     >
                       Browse files
@@ -955,10 +955,10 @@ contract Vault {
                   <button
                     onClick={() => setIsAIConfigModalOpen(true)}
                     className="self-end h-11 inline-flex items-center gap-2 px-5
-                             bg-[#1E1E1E] text-mush-orange text-base font-normal
+                             bg-[#1E1E1E] text-smart-orange text-base font-normal
                              border border-[#333333] rounded-lg
                              transition-all duration-300
-                             hover:bg-mush-orange/10 hover:border-mush-orange/50
+                             hover:bg-smart-orange/10 hover:border-smart-orange/50
                              whitespace-nowrap"
                   >
                     <span>Analyze Contract</span>
@@ -1125,7 +1125,7 @@ contract Vault {
           )}
       </main>
 
-      <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-mush-orange/0 via-mush-orange/30 to-mush-orange/0" />
+      <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-smart-orange/0 via-smart-orange/30 to-smart-orange/0" />
     </div>
   );
 }

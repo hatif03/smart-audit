@@ -12,8 +12,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'mush-orange': '#FF8B3E',
-        'mush-green': '#4EC9B0',
+        'smart-orange': '#FF8B3E',
+        'smart-green': '#4EC9B0',
       },
       animation: {
         'bounce-slow': 'bounce 2s infinite',

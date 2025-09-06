@@ -40,9 +40,9 @@ export default function ContractInfoCard({ chainInfo, chain, address }: Contract
 
   return (
     <div className="bg-[#1E1E1E] rounded-lg overflow-hidden mb-6 
-                   border border-[#333333] hover:border-mush-orange/30 
+                   border border-[#333333] hover:border-smart-orange/30 
                    transition-colors relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-mush-orange/0 via-mush-orange/5 to-mush-orange/0 
+      <div className="absolute inset-0 bg-gradient-to-r from-smart-orange/0 via-smart-orange/5 to-smart-orange/0 
                      opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
       <div className="relative z-10">
         <div className="flex items-center justify-between px-6 py-4 bg-[#1E1E1E] border-b border-[#333333]">
@@ -145,10 +145,10 @@ export default function ContractInfoCard({ chainInfo, chain, address }: Contract
           <button
             onClick={handleViewSource}
             className="h-11 inline-flex items-center gap-2 px-5
-                     bg-[#1E1E1E] text-mush-green text-base
+                     bg-[#1E1E1E] text-smart-green text-base
                      border border-[#333333] rounded-lg
                      transition-all duration-300
-                     hover:bg-mush-green/10 hover:border-mush-green/50
+                     hover:bg-smart-green/10 hover:border-smart-green/50
                      cursor-pointer"
           >
             View Source →

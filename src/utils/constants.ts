@@ -359,4 +359,4 @@ export const KNOWN_CONTRACTS: Record<
 };
 
 // Change to your own domain
-export const WEBSITE_URL = "mush-audit.vercel.app";
+export const WEBSITE_URL = "smart-audit.vercel.app";

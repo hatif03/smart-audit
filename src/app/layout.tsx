@@ -19,7 +19,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mush Audit - Smart Contract Security Platform",
+  title: "Smart Audit - Smart Contract Security Platform",
   description: "AI-powered smart contract security audit platform",
   viewport: {
     width: 'device-width',
@@ -43,13 +43,13 @@ export default function RootLayout({
               <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                 <Image 
                   src="/mush.png" 
-                  alt="Mush Logo" 
+                  alt="Smart Logo" 
                   width={32} 
                   height={32} 
                   priority
                 />
                 <span className="text-xl font-bold text-[#E5E5E5]">
-                  Mush <span className="text-[#FF8B3E]">Audit</span>
+                  Smart <span className="text-[#FF8B3E]">Audit</span>
                 </span>
               </Link>
             </nav>

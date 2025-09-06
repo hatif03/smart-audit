@@ -47,7 +47,7 @@ export default function HomePage() {
           </a>
 
           <a
-            href="https://github.com/mush-support/mush-audit/blob/main/README.md"
+            href="https://github.com/smart-support/smart-audit/blob/main/README.md"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-4 bg-[#252526] rounded-lg
@@ -149,9 +149,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-center gap-4 text-sm text-gray-400">
             <div>
-              © 2024 mush-support. Licensed under{" "}
+              © 2024 smart-support. Licensed under{" "}
               <a
-                href="https://github.com/mush-support/mush-audit/blob/main/LICENSE"
+                href="https://github.com/smart-support/smart-audit/blob/main/LICENSE"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#FF8B3E] hover:text-[#FF8B3E]/80 transition-colors"
@@ -160,7 +160,7 @@ export default function HomePage() {
               </a>
             </div>
             <a
-              href="https://github.com/mush-support/mush-audit"
+              href="https://github.com/smart-support/smart-audit"
               target="_blank"
               rel="noopener noreferrer"
               className="p-1 text-gray-400 hover:text-gray-300 transition-colors"

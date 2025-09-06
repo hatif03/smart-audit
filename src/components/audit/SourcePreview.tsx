@@ -441,13 +441,13 @@ export default function SourcePreview({
           >
             <Image
               src="/mush.png"
-              alt="Mush Audit"
+              alt="Smart Audit"
               width={28}
               height={28}
               className="w-7 h-7"
             />
             <span className="text-xl font-bold text-[#E5E5E5]">
-              Mush <span className="text-[#FF8B3E]">Audit</span>
+              Smart <span className="text-[#FF8B3E]">Audit</span>
             </span>
           </Link>
         </div>

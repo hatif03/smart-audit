@@ -162,20 +162,20 @@ function SourceContent() {
           <div className="relative w-24 h-24 mx-auto mb-6">
             {/* Outer rotating halo */}
             <div
-              className="absolute inset-0 border-4 border-t-mush-orange border-r-mush-orange/50 border-b-mush-orange/30 border-l-mush-orange/10 
+              className="absolute inset-0 border-4 border-t-smart-orange border-r-smart-orange/50 border-b-smart-orange/30 border-l-smart-orange/10 
                           rounded-full animate-spin"
             />
 
             {/* Inner pulse effect */}
             <div
-              className="absolute inset-2 border-2 border-mush-orange/50 rounded-full 
+              className="absolute inset-2 border-2 border-smart-orange/50 rounded-full 
                           animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"
             />
 
             {/* Logo */}
             <div
               className="absolute inset-3 bg-[#1E1E1E] rounded-full flex items-center justify-center
-                          border border-mush-orange/20"
+                          border border-smart-orange/20"
             >
               <Image
                 src="/mush.png"
@@ -246,11 +246,11 @@ export default function SourcePage() {
           <div className="text-center">
             <div className="relative w-24 h-24 mx-auto mb-6">
               {/* Outer rotating halo */}
-              <div className="absolute inset-0 border-4 border-t-mush-orange border-r-mush-orange/50 border-b-mush-orange/30 border-l-mush-orange/10 rounded-full animate-spin" />
+              <div className="absolute inset-0 border-4 border-t-smart-orange border-r-smart-orange/50 border-b-smart-orange/30 border-l-smart-orange/10 rounded-full animate-spin" />
               {/* Inner pulse effect */}
-              <div className="absolute inset-2 border-2 border-mush-orange/50 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+              <div className="absolute inset-2 border-2 border-smart-orange/50 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
               {/* Logo */}
-              <div className="absolute inset-3 bg-[#1E1E1E] rounded-full flex items-center justify-center border border-mush-orange/20">
+              <div className="absolute inset-3 bg-[#1E1E1E] rounded-full flex items-center justify-center border border-smart-orange/20">
                 <Image
                   src="/mush.png"
                   alt="Loading"
