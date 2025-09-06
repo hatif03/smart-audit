@@ -179,7 +179,7 @@ function SourceContent() {
             >
               <Image
                 src="/smart-audit-logo.svg"
-                alt="Smart Audit Loading"
+                alt="Loading"
                 width={40}
                 height={40}
                 className="animate-bounce-slow"
@@ -253,7 +253,7 @@ export default function SourcePage() {
               <div className="absolute inset-3 bg-[#1E1E1E] rounded-full flex items-center justify-center border border-mush-orange/20">
                 <Image
                   src="/smart-audit-logo.svg"
-                  alt="Smart Audit Loading"
+                  alt="Loading"
                   width={32}
                   height={32}
                   priority

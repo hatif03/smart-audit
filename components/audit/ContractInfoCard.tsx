@@ -1,4 +1,5 @@
 import { formatEtherBalance, formatSupply } from '@/utils/format';
+import { useRouter } from 'next/navigation';
 import { getExplorerUrl } from '@/utils/chainServices';
 
 interface ContractBasicInfo {
@@ -25,7 +26,17 @@ interface ContractInfoCardProps {
 }
 
 export default function ContractInfoCard({ chainInfo, chain, address }: ContractInfoCardProps) {
+  const router = useRouter();
 
+  const handleViewSource = () => {
+    const params = new URLSearchParams({
+      address,
+      chain,
+      ...(chainInfo.implementation && { implementation: chainInfo.implementation }),
+      ...(chainInfo.name && { tokenName: chainInfo.name })
+    });
+    window.open(`/audit/source?${params.toString()}`, '_blank');
+  };
 
   return (
     <div className="bg-[#1E1E1E] rounded-lg overflow-hidden mb-6 
@@ -131,6 +142,17 @@ export default function ContractInfoCard({ chainInfo, chain, address }: Contract
             </svg>
           </a>
 
+          <button
+            onClick={handleViewSource}
+            className="h-11 inline-flex items-center gap-2 px-5
+                     bg-[#1E1E1E] text-mush-green text-base
+                     border border-[#333333] rounded-lg
+                     transition-all duration-300
+                     hover:bg-mush-green/10 hover:border-mush-green/50
+                     cursor-pointer"
+          >
+            View Source →
+          </button>
         </div>
       </div>
     </div>

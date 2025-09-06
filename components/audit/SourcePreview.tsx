@@ -447,7 +447,7 @@ export default function SourcePreview({
               className="w-7 h-7"
             />
             <span className="text-xl font-bold text-[#E5E5E5]">
-              Smart <span className="text-[#FF8B3E]">Audit</span>
+              Mush <span className="text-[#FF8B3E]">Audit</span>
             </span>
           </Link>
         </div>
@@ -726,7 +726,7 @@ export default function SourcePreview({
               <div className="absolute inset-2 bg-[#1E1E1E] rounded-full flex items-center justify-center">
                 <Image
                   src="/smart-audit-logo.svg"
-                  alt="Smart Audit Loading"
+                  alt="Loading"
                   width={40}
                   height={40}
                   className="animate-bounce-slow"
