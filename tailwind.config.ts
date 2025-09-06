@@ -44,6 +44,7 @@ const config: Config = {
       fontFamily: {
         'cyber': ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
         'cyber-heading': ['Orbitron', 'Exo 2', 'sans-serif'],
+        'sans': ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
       },
       animation: {
         'bounce-slow': 'bounce 2s infinite',
@@ -123,6 +124,20 @@ const config: Config = {
         'neon-magenta': '0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 15px #FF00FF',
         'neon-lime': '0 0 5px #00FF00, 0 0 10px #00FF00, 0 0 15px #00FF00',
         'neon-danger': '0 0 5px #FF0040, 0 0 10px #FF0040, 0 0 15px #FF0040',
+        'neon-orange': '0 0 5px #FF6600, 0 0 10px #FF6600, 0 0 15px #FF6600',
+        'neon-purple': '0 0 5px #8A2BE2, 0 0 10px #8A2BE2, 0 0 15px #8A2BE2',
+        'cyber-glow': '0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor',
+      },
+      backdropBlur: {
+        'cyber': '10px',
+      },
+      borderRadius: {
+        'cyber': '0.5rem',
+        'cyber-lg': '0.75rem',
+      },
+      spacing: {
+        'cyber': '0.5rem',
+        'cyber-lg': '1rem',
       },
     },
   },
