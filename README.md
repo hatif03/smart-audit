@@ -5,7 +5,9 @@ Smart Audit is an AI-powered smart contract security analysis platform that leve
 
 ----------------------------------------
 
-![image](https://github.com/user-attachments/assets/336fae3c-06af-4e09-a59a-3d815e1f0f53)
+
+<img width="1920" height="1080" alt="Screenshot (347)" src="https://github.com/user-attachments/assets/c548528e-2ded-4060-9f20-687711f6dbd0" />
+
 
 ----------------------------------------
 
