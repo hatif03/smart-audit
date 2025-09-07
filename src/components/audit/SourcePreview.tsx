@@ -94,12 +94,107 @@ const handleSaveAsImage = async (content: string, fileName: string) => {
     position: fixed;
     top: -9999px;
     left: -9999px;
-    width: 800px;
-    padding: 20px;
-    background: #1A1A1A;
-    color: #E5E5E5;
-    font-family: system-ui, -apple-system, sans-serif;
+    width: 900px;
+    padding: 30px;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 50%, #0A0A0A 100%);
+    color: #00FFFF;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    line-height: 1.6;
   `;
+  
+  // Add cyberpunk styling to the temp div
+  const style = document.createElement("style");
+  style.textContent = `
+    .temp-markdown h1 {
+      color: #00FFFF;
+      border-bottom: 2px solid #00FFFF;
+      padding-bottom: 0.5em;
+      margin-bottom: 1em;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+    .temp-markdown h2 {
+      color: #FF6B35;
+      margin-top: 1.5em;
+      margin-bottom: 0.8em;
+      text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+      border-left: 3px solid #FF6B35;
+      padding-left: 15px;
+    }
+    .temp-markdown h3 {
+      color: #39FF14;
+      margin-top: 1.2em;
+      margin-bottom: 0.6em;
+      text-shadow: 0 0 6px rgba(57, 255, 20, 0.4);
+    }
+    .temp-markdown pre {
+      background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
+    }
+    .temp-markdown code {
+      color: #FF6B35;
+      background: rgba(255, 107, 53, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-shadow: 0 0 4px rgba(255, 107, 53, 0.3);
+    }
+    .temp-markdown p {
+      color: #CCCCCC;
+      text-shadow: 0 0 2px rgba(204, 204, 204, 0.1);
+    }
+    .temp-markdown ul, .temp-markdown ol {
+      color: #CCCCCC;
+    }
+    .temp-markdown li {
+      text-shadow: 0 0 2px rgba(204, 204, 204, 0.1);
+    }
+    .temp-markdown strong {
+      color: #39FF14;
+      text-shadow: 0 0 4px rgba(57, 255, 20, 0.3);
+    }
+    .temp-markdown em {
+      color: #FF6B35;
+      text-shadow: 0 0 4px rgba(255, 107, 53, 0.3);
+    }
+    .temp-markdown blockquote {
+      border-left: 4px solid #FF6B35;
+      margin: 1em 0;
+      padding-left: 1em;
+      color: #CCCCCC;
+      background: rgba(255, 107, 53, 0.05);
+      padding: 15px;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 0 10px rgba(255, 107, 53, 0.1);
+    }
+    .temp-markdown table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1em 0;
+      background: rgba(0, 255, 255, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+    .temp-markdown th, .temp-markdown td {
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      padding: 12px;
+      text-align: left;
+    }
+    .temp-markdown th {
+      background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+      color: #00FFFF;
+      text-shadow: 0 0 4px rgba(0, 255, 255, 0.3);
+      font-weight: 600;
+    }
+    .temp-markdown td {
+      color: #CCCCCC;
+    }
+  `;
+  document.head.appendChild(style);
+  
+  tempDiv.className = "temp-markdown";
   document.body.appendChild(tempDiv);
 
   // Render Markdown content
@@ -107,7 +202,7 @@ const handleSaveAsImage = async (content: string, fileName: string) => {
 
   try {
     const canvas = await html2canvas(tempDiv, {
-      backgroundColor: "#1A1A1A",
+      backgroundColor: "#0A0A0A",
       scale: 2,
       useCORS: true,
       logging: false,
@@ -122,6 +217,7 @@ const handleSaveAsImage = async (content: string, fileName: string) => {
     toast.error("Failed to generate image");
   } finally {
     document.body.removeChild(tempDiv);
+    document.head.removeChild(style);
   }
 };
 
@@ -649,25 +745,32 @@ export default function SourcePreview({
             {selectedFile.path.endsWith(".md") ? (
               <div className="relative">
                 {showRawReadme ? (
-                  <pre className="p-4 text-[#CCCCCC] text-sm font-mono whitespace-pre-wrap">
+                  <pre className="p-4 cyber-text-secondary text-sm font-mono whitespace-pre-wrap bg-gradient-to-br from-cyber-dark to-cyber-black border border-neon-cyan/30 rounded-lg shadow-[0_0_20px_rgba(0,255,255,0.1)]">
                     {selectedFile.content}
                   </pre>
                 ) : (
                   <div
                     className="p-4 prose prose-invert max-w-none
-                                prose-headings:text-[#E5E5E5] 
-                                prose-h1:text-3xl prose-h1:mb-8 prose-h1:pb-4 prose-h1:border-b prose-h1:border-[#333333]
-                                prose-h2:text-xl prose-h2:text-[#FF8B3E] prose-h2:mt-8 prose-h2:mb-4
-                                prose-p:text-[#CCCCCC]
-                                prose-li:text-[#CCCCCC]
-                                prose-strong:text-[#4EC9B0]
-                                prose-code:text-[#CE9178] prose-code:bg-[#1E1E1E]
+                                prose-headings:cyber-text-primary 
+                                prose-h1:text-3xl prose-h1:mb-8 prose-h1:pb-4 prose-h1:border-b prose-h1:border-neon-cyan prose-h1:animate-neon-pulse
+                                prose-h2:text-xl prose-h2:text-neon-orange prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-l prose-h2:border-neon-orange prose-h2:pl-4
+                                prose-h3:text-neon-lime prose-h3:text-shadow prose-h3:mt-6 prose-h3:mb-3
+                                prose-p:cyber-text-secondary
+                                prose-li:cyber-text-secondary
+                                prose-strong:text-neon-lime prose-strong:text-shadow
+                                prose-code:text-neon-orange prose-code:bg-cyber-dark prose-code:text-shadow
+                                prose-em:text-neon-orange prose-em:text-shadow
                                 [&_ul]:my-0 [&_ul]:pl-4
                                 [&_li]:my-1
-                                [&_pre]:bg-[#252526]
-                                [&_pre]:border [&_pre]:border-[#333333]
+                                [&_pre]:bg-gradient-to-br [&_pre]:from-cyber-dark [&_pre]:to-cyber-black
+                                [&_pre]:border [&_pre]:border-neon-cyan/30
                                 [&_pre]:rounded-md
-                                [&_pre]:shadow-sm"
+                                [&_pre]:shadow-[0_0_20px_rgba(0,255,255,0.1)]
+                                [&_blockquote]:border-l-4 [&_blockquote]:border-neon-orange
+                                [&_blockquote]:bg-neon-orange/5 [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:rounded-r-md
+                                [&_table]:bg-neon-cyan/5 [&_table]:rounded-lg [&_table]:overflow-hidden
+                                [&_th]:bg-gradient-to-br [&_th]:from-cyber-dark [&_th]:to-cyber-black [&_th]:text-neon-cyan
+                                [&_td]:border [&_td]:border-neon-cyan/30 [&_td]:cyber-text-secondary"
                   >
                     <ReactMarkdown>{selectedFile.content}</ReactMarkdown>
                   </div>

@@ -157,25 +157,28 @@ function SourceContent() {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-[#1E1E1E] flex items-center justify-center">
-        <div className="text-center">
+      <div className="fixed inset-0 bg-cyber-black/80 backdrop-blur-sm flex items-center justify-center">
+        <div className="cyber-card rounded-lg p-8 flex flex-col items-center relative overflow-hidden">
+          {/* Animated scan line */}
+          <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-scan-sweep"></div>
+          
           <div className="relative w-24 h-24 mx-auto mb-6">
             {/* Outer rotating halo */}
             <div
-              className="absolute inset-0 border-4 border-t-mush-orange border-r-mush-orange/50 border-b-mush-orange/30 border-l-mush-orange/10 
+              className="absolute inset-0 border-4 border-t-neon-cyan border-r-neon-cyan/50 border-b-neon-cyan/30 border-l-neon-cyan/10 
                           rounded-full animate-spin"
             />
 
             {/* Inner pulse effect */}
             <div
-              className="absolute inset-2 border-2 border-mush-orange/50 rounded-full 
+              className="absolute inset-2 border-2 border-neon-cyan/50 rounded-full 
                           animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"
             />
 
             {/* Logo */}
             <div
-              className="absolute inset-3 bg-[#1E1E1E] rounded-full flex items-center justify-center
-                          border border-mush-orange/20"
+              className="absolute inset-3 bg-cyber-black rounded-full flex items-center justify-center
+                          border border-neon-cyan/20"
             >
               <Image
                 src="/smart-audit-logo.svg"
@@ -188,10 +191,10 @@ function SourceContent() {
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-xl font-medium text-white">
+            <h3 className="text-xl font-medium cyber-text-primary animate-neon-pulse">
               Loading Source Code
             </h3>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm cyber-text-secondary">
               Fetching contract files from blockchain...
             </p>
           </div>
@@ -202,10 +205,13 @@ function SourceContent() {
 
   if (!sourceData) {
     return (
-      <div className="fixed inset-0 bg-[#1E1E1E] flex items-center justify-center">
-        <div className="text-white text-center">
-          <p className="text-lg mb-2">No source code found</p>
-          <p className="text-sm text-gray-400">
+      <div className="fixed inset-0 bg-cyber-black/80 backdrop-blur-sm flex items-center justify-center">
+        <div className="cyber-card rounded-lg p-8 text-center relative overflow-hidden">
+          {/* Animated scan line */}
+          <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-scan-sweep"></div>
+          
+          <p className="text-lg mb-2 cyber-text-primary">No source code found</p>
+          <p className="text-sm cyber-text-secondary">
             This contract may not exist on {chain} or its source code is not
             verified.
           </p>
@@ -242,15 +248,18 @@ export default function SourcePage() {
   return (
     <Suspense
       fallback={
-        <div className="fixed inset-0 bg-[#1E1E1E] flex items-center justify-center">
-          <div className="text-center">
+        <div className="fixed inset-0 bg-cyber-black/80 backdrop-blur-sm flex items-center justify-center">
+          <div className="cyber-card rounded-lg p-8 flex flex-col items-center relative overflow-hidden">
+            {/* Animated scan line */}
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-scan-sweep"></div>
+            
             <div className="relative w-24 h-24 mx-auto mb-6">
               {/* Outer rotating halo */}
-              <div className="absolute inset-0 border-4 border-t-mush-orange border-r-mush-orange/50 border-b-mush-orange/30 border-l-mush-orange/10 rounded-full animate-spin" />
+              <div className="absolute inset-0 border-4 border-t-neon-cyan border-r-neon-cyan/50 border-b-neon-cyan/30 border-l-neon-cyan/10 rounded-full animate-spin" />
               {/* Inner pulse effect */}
-              <div className="absolute inset-2 border-2 border-mush-orange/50 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+              <div className="absolute inset-2 border-2 border-neon-cyan/50 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
               {/* Logo */}
-              <div className="absolute inset-3 bg-[#1E1E1E] rounded-full flex items-center justify-center border border-mush-orange/20">
+              <div className="absolute inset-3 bg-cyber-black rounded-full flex items-center justify-center border border-neon-cyan/20">
                 <Image
                   src="/smart-audit-logo.svg"
                   alt="Smart Audit Loading"
@@ -262,10 +271,10 @@ export default function SourcePage() {
               </div>
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-medium text-white">
+              <h3 className="text-xl font-medium cyber-text-primary animate-neon-pulse">
                 Loading Source Code
               </h3>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm cyber-text-secondary">
                 Fetching contract files from blockchain...
               </p>
             </div>

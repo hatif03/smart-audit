@@ -86,12 +86,12 @@ export function useAIConfig() {
       }
     }
     return {
-      provider: "gpt",
+      provider: "gemini",
       gptKey: "",
       claudeKey: "",
       geminiKey: "",
       xaiKey: "",
-      selectedModel: GPT_MODELS[0].id,
+      selectedModel: GEMINI_MODELS[0].id,
       language: "english",
     };
   });
@@ -127,8 +127,14 @@ export async function analyzeWithAI(
         );
       }
 
+      // Use environment variable as fallback if no API key provided
+      const apiKey = config.geminiKey || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+      if (!apiKey) {
+        throw new Error("Gemini API key not provided. Please configure it in the AI settings or set NEXT_PUBLIC_GEMINI_API_KEY environment variable.");
+      }
+
       response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel.id}:generateContent?key=${config.geminiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel.id}:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: {

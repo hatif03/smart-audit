@@ -1,51 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAIConfig } from "@/utils/ai";
 import { GPT_MODELS } from "@/utils/openai-models";
 import { CLAUDE_MODELS } from "@/utils/claude-models";
 import { GEMINI_MODELS } from "@/utils/gemini-models";
+import { XAI_MODELS } from "@/utils/xai-models";
 import { Dialog, Listbox } from "@headlessui/react";
 import { toast } from "react-hot-toast";
 import { AIConfig } from "@/types/ai";
 import { RESPONSE_LANGUAGES } from "@/utils/language";
 import { PROVIDERS, getProviderInfo, getApiKey } from "@/utils/provider-config";
 
-interface AIConfigModalProps {
+interface HeaderAIConfigProps {
   isOpen: boolean;
   onClose: () => void;
-  onStartAnalysis: () => void;
 }
 
-export default function AIConfigModal({
+export default function HeaderAIConfig({
   isOpen,
   onClose,
-  onStartAnalysis,
-}: AIConfigModalProps) {
-  const [config, setConfig] = useState<AIConfig>(() => {
-    const defaultConfig = {
-      provider: "gpt",
-      gptKey: "",
-      claudeKey: "",
-      geminiKey: "",
-      xaiKey: "",
-      selectedModel: GPT_MODELS[0].id,
-      language: "english",
-      superPrompt: true,
-    };
-
-    const savedConfig = localStorage.getItem('ai_config');
-    if (savedConfig) {
-      try {
-        return {
-          ...defaultConfig,
-          ...JSON.parse(savedConfig),
-          superPrompt: true,
-        };
-      } catch (e) {
-        console.error('Failed to parse saved config:', e);
-      }
-    }
-    return defaultConfig;
-  });
+}: HeaderAIConfigProps) {
+  const { config, setConfig } = useAIConfig();
   const providerInfo = getProviderInfo(config.provider);
 
   // Handle provider change
@@ -73,16 +47,36 @@ export default function AIConfigModal({
     }));
   };
 
-  const handleStartAnalysis = () => {
+  const handleSave = () => {
     const currentKey = getApiKey(config);
-    if (!currentKey?.trim()) {
+    if (config.provider !== "gemini" && !currentKey?.trim()) {
       toast.error(`Please enter your ${providerInfo.keyName}`);
+      return;
+    }
+    
+    // For Gemini, check if either user provided key or environment variable exists
+    if (config.provider === "gemini" && !currentKey?.trim() && !process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
+      toast.error("Please enter your Gemini API key or set NEXT_PUBLIC_GEMINI_API_KEY environment variable");
       return;
     }
     
     // save config to local storage
     localStorage.setItem('ai_config', JSON.stringify(config));
-    onStartAnalysis();
+    toast.success("AI configuration saved successfully!");
+    onClose();
+  };
+
+  const getCurrentModelName = () => {
+    if (config.provider === "gpt") {
+      return GPT_MODELS.find(m => m.id === config.selectedModel)?.name || "GPT";
+    } else if (config.provider === "claude") {
+      return CLAUDE_MODELS.find(m => m.id === config.selectedModel)?.name || "Claude";
+    } else if (config.provider === "gemini") {
+      return GEMINI_MODELS.find(m => m.id === config.selectedModel)?.name || "Gemini";
+    } else if (config.provider === "xai") {
+      return XAI_MODELS.find(m => m.id === config.selectedModel)?.name || "xAI";
+    }
+    return "AI Model";
   };
 
   return (
@@ -222,32 +216,57 @@ export default function AIConfigModal({
             </Listbox>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              {providerInfo.keyName}
-            </label>
-            <input
-              type="password"
-              value={getApiKey(config)}
-              onChange={(e) => handleKeyChange(e.target.value)}
-              placeholder={providerInfo.keyPlaceholder}
-              className="w-full bg-[#2A2A2A] text-gray-300 border border-[#404040] rounded-md px-3 py-2"
-            />
-            <div className="mt-2 text-sm text-gray-400">
-              <p>
-                Need a {providerInfo.keyName}?{" "}
-                <a
-                  href={providerInfo.getKeyLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FF8B3E] hover:text-[#FF8B3E]/80 transition-colors"
-                >
-                  {providerInfo.getKeyText}
-                </a>{" "}
-                (requires registration)
-              </p>
+          {config.provider !== "gemini" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                {providerInfo.keyName}
+              </label>
+              <input
+                type="password"
+                value={getApiKey(config)}
+                onChange={(e) => handleKeyChange(e.target.value)}
+                placeholder={providerInfo.keyPlaceholder}
+                className="w-full bg-[#2A2A2A] text-gray-300 border border-[#404040] rounded-md px-3 py-2"
+              />
+              <div className="mt-2 text-sm text-gray-400">
+                <p>
+                  Need a {providerInfo.keyName}?{" "}
+                  <a
+                    href={providerInfo.getKeyLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#FF8B3E] hover:text-[#FF8B3E]/80 transition-colors"
+                  >
+                    {providerInfo.getKeyText}
+                  </a>{" "}
+                  (requires registration)
+                </p>
+              </div>
             </div>
-          </div>
+          )}
+          
+          {config.provider === "gemini" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                API Key
+              </label>
+              <input
+                type="password"
+                value={getApiKey(config)}
+                onChange={(e) => handleKeyChange(e.target.value)}
+                placeholder={process.env.NEXT_PUBLIC_GEMINI_API_KEY ? "Gemini API Key (optional - using environment variable)" : "Gemini API Key (required)"}
+                className="w-full bg-[#2A2A2A] text-gray-300 border border-[#404040] rounded-md px-3 py-2"
+              />
+              <div className="mt-2 text-sm text-gray-400">
+                <p>
+                  {process.env.NEXT_PUBLIC_GEMINI_API_KEY 
+                    ? "Gemini API key is optional. Environment variable is configured."
+                    : "Gemini API key is required. Set NEXT_PUBLIC_GEMINI_API_KEY environment variable for default access."
+                  }
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex justify-end gap-3 mt-6">
@@ -255,12 +274,12 @@ export default function AIConfigModal({
             onClick={() => {
               localStorage.removeItem("ai_config");
               setConfig({
-                provider: "gpt",
+                provider: "gemini",
                 gptKey: "",
                 claudeKey: "",
                 geminiKey: "",
                 xaiKey: "",
-                selectedModel: GPT_MODELS[0].id,
+                selectedModel: GEMINI_MODELS[0].id,
                 language: "english",
                 superPrompt: true,
               });
@@ -276,14 +295,14 @@ export default function AIConfigModal({
             Cancel
           </button>
           <button
-            onClick={handleStartAnalysis}
+            onClick={handleSave}
             className="group relative inline-flex items-center gap-2 px-4 py-2 
                      bg-[#252526] rounded-lg text-[#FF8B3E] font-medium
                      border border-[#FF8B3E]/20
                      transition-all duration-300 ease-out
                      hover:bg-[#FF8B3E]/10"
           >
-            <span className="relative z-10">Start Analysis</span>
+            <span className="relative z-10">Save Configuration</span>
             <svg
               className="w-4 h-4 transform transition-transform duration-300 
                          group-hover:translate-x-1"
@@ -295,7 +314,7 @@ export default function AIConfigModal({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
+                d="M5 13l4 4L19 7"
               />
             </svg>
           </button>

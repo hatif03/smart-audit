@@ -22,12 +22,12 @@ export default function AIConfigModal({
 }: AIConfigModalProps) {
   const [config, setConfig] = useState<AIConfig>(() => {
     const defaultConfig = {
-      provider: "gpt",
+      provider: "gemini",
       gptKey: "",
       claudeKey: "",
       geminiKey: "",
       xaiKey: "",
-      selectedModel: GPT_MODELS[0].id,
+      selectedModel: GEMINI_MODELS[0].id,
       language: "english",
       superPrompt: true,
     };
@@ -75,8 +75,14 @@ export default function AIConfigModal({
 
   const handleStartAnalysis = () => {
     const currentKey = getApiKey(config);
-    if (!currentKey?.trim()) {
+    if (config.provider !== "gemini" && !currentKey?.trim()) {
       toast.error(`Please enter your ${providerInfo.keyName}`);
+      return;
+    }
+    
+    // For Gemini, check if either user provided key or environment variable exists
+    if (config.provider === "gemini" && !currentKey?.trim() && !process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
+      toast.error("Please enter your Gemini API key or set NEXT_PUBLIC_GEMINI_API_KEY environment variable");
       return;
     }
     
@@ -222,32 +228,57 @@ export default function AIConfigModal({
             </Listbox>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              {providerInfo.keyName}
-            </label>
-            <input
-              type="password"
-              value={getApiKey(config)}
-              onChange={(e) => handleKeyChange(e.target.value)}
-              placeholder={providerInfo.keyPlaceholder}
-              className="w-full bg-[#2A2A2A] text-gray-300 border border-[#404040] rounded-md px-3 py-2"
-            />
-            <div className="mt-2 text-sm text-gray-400">
-              <p>
-                Need a {providerInfo.keyName}?{" "}
-                <a
-                  href={providerInfo.getKeyLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FF8B3E] hover:text-[#FF8B3E]/80 transition-colors"
-                >
-                  {providerInfo.getKeyText}
-                </a>{" "}
-                (requires registration)
-              </p>
+          {config.provider !== "gemini" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                {providerInfo.keyName}
+              </label>
+              <input
+                type="password"
+                value={getApiKey(config)}
+                onChange={(e) => handleKeyChange(e.target.value)}
+                placeholder={providerInfo.keyPlaceholder}
+                className="w-full bg-[#2A2A2A] text-gray-300 border border-[#404040] rounded-md px-3 py-2"
+              />
+              <div className="mt-2 text-sm text-gray-400">
+                <p>
+                  Need a {providerInfo.keyName}?{" "}
+                  <a
+                    href={providerInfo.getKeyLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#FF8B3E] hover:text-[#FF8B3E]/80 transition-colors"
+                  >
+                    {providerInfo.getKeyText}
+                  </a>{" "}
+                  (requires registration)
+                </p>
+              </div>
             </div>
-          </div>
+          )}
+          
+          {config.provider === "gemini" && (
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                API Key
+              </label>
+              <input
+                type="password"
+                value={getApiKey(config)}
+                onChange={(e) => handleKeyChange(e.target.value)}
+                placeholder={process.env.NEXT_PUBLIC_GEMINI_API_KEY ? "Gemini API Key (optional - using environment variable)" : "Gemini API Key (required)"}
+                className="w-full bg-[#2A2A2A] text-gray-300 border border-[#404040] rounded-md px-3 py-2"
+              />
+              <div className="mt-2 text-sm text-gray-400">
+                <p>
+                  {process.env.NEXT_PUBLIC_GEMINI_API_KEY 
+                    ? "Gemini API key is optional. Environment variable is configured."
+                    : "Gemini API key is required. Set NEXT_PUBLIC_GEMINI_API_KEY environment variable for default access."
+                  }
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex justify-end gap-3 mt-6">
@@ -255,12 +286,12 @@ export default function AIConfigModal({
             onClick={() => {
               localStorage.removeItem("ai_config");
               setConfig({
-                provider: "gpt",
+                provider: "gemini",
                 gptKey: "",
                 claudeKey: "",
                 geminiKey: "",
                 xaiKey: "",
-                selectedModel: GPT_MODELS[0].id,
+                selectedModel: GEMINI_MODELS[0].id,
                 language: "english",
                 superPrompt: true,
               });

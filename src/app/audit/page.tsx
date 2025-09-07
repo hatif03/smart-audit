@@ -20,7 +20,6 @@ import {
   AIIcon,
 } from "@/components/Icons";
 import Editor from "@monaco-editor/react";
-import AIConfigModal from "@/components/audit/AIConfigModal";
 import { analyzeContract } from "@/services/audit/contractAnalyzer";
 import { useAIConfig, getModelName, getAIConfig } from "@/utils/ai";
 import html2canvas from "html2canvas";
@@ -36,7 +35,6 @@ export default function AuditPage() {
   const [loading, setLoading] = useState(false);
   const [chainInfo, setChainInfo] = useState<ChainContractInfo | null>(null);
   const [activeTab, setActiveTab] = useState<TabType>("address");
-  const [isAIConfigModalOpen, setIsAIConfigModalOpen] = useState(false);
   const [contractCode, setContractCode] = useState("");
   const [analysisFiles, setAnalysisFiles] = useState<ContractFile[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -157,7 +155,6 @@ contract Vault {
       }
 
       setIsAnalyzing(true);
-      setIsAIConfigModalOpen(false);
 
       const controller = new AbortController();
       setAbortController(controller);
@@ -232,66 +229,197 @@ contract Vault {
             <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
             <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
             <style>
+              @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+              
               body {
-                font-family: system-ui, -apple-system, sans-serif;
+                font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
                 line-height: 1.6;
-                max-width: 800px;
+                max-width: 900px;
                 margin: 0 auto;
-                padding: 20px;
-                background: #1A1A1A;
-                color: #E5E5E5;
-              }
-              h1 {
-                color: #E5E5E5;
-                border-bottom: 1px solid #333;
-                padding-bottom: 0.5em;
-              }
-              h2 {
-                color: #FF8B3E;
-                margin-top: 1.5em;
-              }
-              pre {
-                background: #252526;
-                padding: 16px;
-                border-radius: 4px;
+                padding: 30px;
+                background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 50%, #0A0A0A 100%);
+                color: #00FFFF;
+                position: relative;
                 overflow-x: auto;
-                border: 1px solid #333;
               }
+              
+              /* Cyberpunk grid background */
+              body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: 
+                  linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+                background-size: 20px 20px;
+                pointer-events: none;
+                z-index: -1;
+              }
+              
+              /* Floating particles */
+              body::after {
+                content: '';
+                position: fixed;
+                top: 20px;
+                left: 10px;
+                width: 2px;
+                height: 2px;
+                background: #00FFFF;
+                border-radius: 50%;
+                animation: pulse 2s infinite;
+                z-index: -1;
+              }
+              
+              @keyframes pulse {
+                0%, 100% { opacity: 0.3; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.2); }
+              }
+              
+              h1 {
+                color: #00FFFF;
+                border-bottom: 2px solid #00FFFF;
+                padding-bottom: 0.5em;
+                margin-bottom: 1em;
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+                animation: neon-flicker 3s infinite alternate;
+              }
+              
+              @keyframes neon-flicker {
+                0%, 100% { text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3); }
+                50% { text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.6); }
+              }
+              
+              h2 {
+                color: #FF6B35;
+                margin-top: 1.5em;
+                margin-bottom: 0.8em;
+                text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+                border-left: 3px solid #FF6B35;
+                padding-left: 15px;
+              }
+              
+              h3 {
+                color: #39FF14;
+                margin-top: 1.2em;
+                margin-bottom: 0.6em;
+                text-shadow: 0 0 6px rgba(57, 255, 20, 0.4);
+              }
+              
+              pre {
+                background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+                padding: 20px;
+                border-radius: 8px;
+                overflow-x: auto;
+                border: 1px solid rgba(0, 255, 255, 0.3);
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
+                position: relative;
+              }
+              
+              pre::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #00FFFF, transparent);
+                animation: scan-sweep 3s infinite;
+              }
+              
+              @keyframes scan-sweep {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(100%); }
+              }
+              
               code {
-                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+                font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
                 font-size: 0.9em;
+                color: #FF6B35;
+                background: rgba(255, 107, 53, 0.1);
+                padding: 2px 6px;
+                border-radius: 4px;
+                text-shadow: 0 0 4px rgba(255, 107, 53, 0.3);
               }
+              
               p {
                 margin: 1em 0;
+                color: #CCCCCC;
+                text-shadow: 0 0 2px rgba(204, 204, 204, 0.1);
               }
+              
               ul, ol {
                 padding-left: 2em;
+                color: #CCCCCC;
               }
+              
+              li {
+                margin: 0.5em 0;
+                text-shadow: 0 0 2px rgba(204, 204, 204, 0.1);
+              }
+              
               a {
-                color: #FF8B3E;
+                color: #00FFFF;
                 text-decoration: none;
+                text-shadow: 0 0 4px rgba(0, 255, 255, 0.3);
+                transition: all 0.3s ease;
               }
+              
               a:hover {
                 text-decoration: underline;
+                text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+                color: #39FF14;
               }
+              
               blockquote {
-                border-left: 4px solid #FF8B3E;
+                border-left: 4px solid #FF6B35;
                 margin: 1em 0;
                 padding-left: 1em;
                 color: #CCCCCC;
+                background: rgba(255, 107, 53, 0.05);
+                padding: 15px;
+                border-radius: 0 8px 8px 0;
+                box-shadow: 0 0 10px rgba(255, 107, 53, 0.1);
               }
+              
               table {
                 border-collapse: collapse;
                 width: 100%;
                 margin: 1em 0;
+                background: rgba(0, 255, 255, 0.05);
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
               }
+              
               th, td {
-                border: 1px solid #333;
-                padding: 8px;
+                border: 1px solid rgba(0, 255, 255, 0.3);
+                padding: 12px;
                 text-align: left;
               }
+              
               th {
-                background: #252526;
+                background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+                color: #00FFFF;
+                text-shadow: 0 0 4px rgba(0, 255, 255, 0.3);
+                font-weight: 600;
+              }
+              
+              td {
+                color: #CCCCCC;
+              }
+              
+              strong {
+                color: #39FF14;
+                text-shadow: 0 0 4px rgba(57, 255, 20, 0.3);
+              }
+              
+              em {
+                color: #FF6B35;
+                font-style: italic;
+                text-shadow: 0 0 4px rgba(255, 107, 53, 0.3);
               }
             </style>
           </head>
@@ -301,15 +429,18 @@ contract Vault {
               position: fixed;
               top: 20px;
               right: 20px;
-              padding: 8px 16px;
-              background: #252526;
-              color: #FF8B3E;
-              border: 1px solid rgba(255,139,62,0.2);
-              border-radius: 6px;
+              padding: 12px 20px;
+              background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+              color: #00FFFF;
+              border: 1px solid rgba(0, 255, 255, 0.3);
+              border-radius: 8px;
               cursor: pointer;
-              font-family: system-ui;
-              transition: all 0.2s;
-            ">Save as Image</button>
+              font-family: 'JetBrains Mono', monospace;
+              font-weight: 500;
+              transition: all 0.3s ease;
+              box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.05);
+              text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            " onmouseover="this.style.background='linear-gradient(135deg, #2A2A2A, #3A3A3A)'; this.style.boxShadow='0 0 30px rgba(0, 255, 255, 0.4), inset 0 0 30px rgba(0, 255, 255, 0.1)'" onmouseout="this.style.background='linear-gradient(135deg, #1A1A1A, #2A2A2A)'; this.style.boxShadow='0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.05)'">Save as Image</button>
             <script>
               document.getElementById('content').innerHTML = marked.parse(\`${content.replace(
                 /`/g,
@@ -368,8 +499,6 @@ contract Vault {
       setIsAnalyzing(false);
       setAbortController(null);
     }
-    // Close AI config modal if open
-    setIsAIConfigModalOpen(false);
   };
 
   const handleMultiFileAnalysis = async () => {
@@ -380,7 +509,6 @@ contract Vault {
 
     try {
       setIsAnalyzing(true);
-      setIsAIConfigModalOpen(false);
 
       const controller = new AbortController();
       setAbortController(controller);
@@ -463,7 +591,6 @@ contract Vault {
       // Reset analysis states
       setAnalysisFiles([]);
       setIsAnalyzing(false);
-      setIsAIConfigModalOpen(false);
       if (abortController) {
         abortController.abort();
         setAbortController(null);
@@ -813,7 +940,7 @@ contract Vault {
               )}
 
               <button
-                onClick={() => setIsAIConfigModalOpen(true)}
+                onClick={handleStartAnalysis}
                 className="self-end h-11 inline-flex items-center gap-2 px-5
                          cyber-button text-base font-normal rounded-lg
                          transition-all duration-300
@@ -835,12 +962,6 @@ contract Vault {
                   />
                 </svg>
               </button>
-
-              <AIConfigModal
-                isOpen={isAIConfigModalOpen}
-                onClose={() => setIsAIConfigModalOpen(false)}
-                onStartAnalysis={handleStartAnalysis}
-              />
 
               {isAnalyzing && (
                 <div className="fixed inset-0 bg-cyber-black/80 backdrop-blur-sm z-50 flex items-center justify-center">
@@ -958,7 +1079,7 @@ contract Vault {
               {uploadedFiles.length > 0 && (
                 <>
                   <button
-                    onClick={() => setIsAIConfigModalOpen(true)}
+                    onClick={handleMultiFileAnalysis}
                     className="self-end h-11 inline-flex items-center gap-2 px-5
                              cyber-button text-base font-normal rounded-lg
                              transition-all duration-300
@@ -982,18 +1103,18 @@ contract Vault {
                   </button>
 
                   {analysisFiles.length > 0 && (
-                    <div className="border-t border-[#333333] mt-4 pt-4">
-                      <h3 className="text-gray-300 text-sm font-medium mb-2">
+                    <div className="border-t border-neon-cyan/30 mt-4 pt-4">
+                      <h3 className="cyber-text-secondary text-sm font-medium mb-2">
                         Analysis Reports:
                       </h3>
                       <div className="space-y-2">
                         {analysisFiles.map((file) => (
                           <div
                             key={file.path}
-                            className="bg-[#252526] p-3 rounded-lg border border-[#333333]"
+                            className="cyber-card p-3 rounded-lg"
                           >
                             <div className="flex items-center justify-between">
-                              <span className="text-gray-300 text-sm">
+                              <span className="cyber-text-secondary text-sm">
                                 {file.name}
                               </span>
                               <div className="flex items-center gap-2">
@@ -1001,7 +1122,7 @@ contract Vault {
                                   onClick={() =>
                                     handleViewReport(file.content, file.name)
                                   }
-                                  className="text-gray-400 text-sm hover:text-gray-300 flex items-center gap-1 px-2 py-1 rounded hover:bg-[#333333] transition-colors duration-150"
+                                  className="cyber-text-muted text-sm hover:text-neon-cyan flex items-center gap-1 px-2 py-1 rounded hover:bg-neon-cyan/10 transition-colors duration-150"
                                 >
                                   <svg
                                     className="w-4 h-4"
@@ -1026,7 +1147,7 @@ contract Vault {
                                 </button>
                                 <button
                                   onClick={() => handleDownloadReport(file)}
-                                  className="text-gray-400 text-sm hover:text-gray-300 flex items-center gap-1 px-2 py-1 rounded hover:bg-[#333333] transition-colors duration-150"
+                                  className="cyber-text-muted text-sm hover:text-neon-cyan flex items-center gap-1 px-2 py-1 rounded hover:bg-neon-cyan/10 transition-colors duration-150"
                                 >
                                   <svg
                                     className="w-4 h-4"
@@ -1045,7 +1166,7 @@ contract Vault {
                                 </button>
                                 <button
                                   onClick={() => handleRemoveReport(file.path)}
-                                  className="text-gray-400 hover:text-red-400 p-1 rounded hover:bg-[#333333] transition-colors duration-150"
+                                  className="cyber-text-muted hover:text-cyber-danger p-1 rounded hover:bg-cyber-danger/10 transition-colors duration-150"
                                 >
                                   <svg
                                     className="w-4 h-4"
@@ -1071,18 +1192,16 @@ contract Vault {
                 </>
               )}
 
-              <AIConfigModal
-                isOpen={isAIConfigModalOpen}
-                onClose={() => setIsAIConfigModalOpen(false)}
-                onStartAnalysis={handleMultiFileAnalysis}
-              />
 
               {isAnalyzing && (
-                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-                  <div className="bg-[#1E1E1E] rounded-lg p-8 flex flex-col items-center">
+                <div className="fixed inset-0 bg-cyber-black/80 backdrop-blur-sm z-50 flex items-center justify-center">
+                  <div className="cyber-card rounded-lg p-8 flex flex-col items-center relative overflow-hidden">
+                    {/* Animated scan line */}
+                    <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-scan-sweep"></div>
+                    
                     <div className="relative w-24 h-24 mb-4">
-                      <div className="absolute inset-0 border-4 border-t-[#FF8B3E] border-r-[#FF8B3E]/50 border-b-[#FF8B3E]/30 border-l-[#FF8B3E]/10 rounded-full animate-spin" />
-                      <div className="absolute inset-2 bg-[#1E1E1E] rounded-full flex items-center justify-center">
+                      <div className="absolute inset-0 border-4 border-t-neon-cyan border-r-neon-cyan/50 border-b-neon-cyan/30 border-l-neon-cyan/10 rounded-full animate-spin" />
+                      <div className="absolute inset-2 bg-cyber-black rounded-full flex items-center justify-center">
                         <Image
                           src="/smart-audit-logo.svg"
                           alt="Smart Audit Loading"
@@ -1092,17 +1211,17 @@ contract Vault {
                         />
                       </div>
                     </div>
-                    <p className="text-[#E5E5E5] text-lg mb-2">
+                    <p className="cyber-text-primary text-lg mb-2 animate-neon-pulse">
                       Analyzing Contract
                     </p>
-                    <p className="text-gray-400 text-sm mb-4">
+                    <p className="cyber-text-secondary text-sm mb-4">
                       This may take a few moments...
                     </p>
                     <button
                       onClick={handleCancelAnalysis}
-                      className="px-4 py-2 bg-[#252526] text-[#FF8B3E] rounded-md 
-                               border border-[#FF8B3E]/20
-                               hover:bg-[#FF8B3E]/10 transition-colors
+                      className="px-4 py-2 cyber-button text-neon-orange rounded-md 
+                               border border-neon-orange/20
+                               hover:bg-neon-orange/10 transition-colors
                                font-medium"
                     >
                       Cancel Analysis

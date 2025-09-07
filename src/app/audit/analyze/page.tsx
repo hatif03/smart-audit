@@ -66,40 +66,58 @@ function AnalyzeContent() {
   }, [address, chain]);
 
   return (
-    <div className="min-h-screen bg-[#1E1E1E]">
+    <div className="min-h-screen bg-cyber-black relative overflow-hidden">
+      {/* Cyberpunk Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyber-black via-cyber-dark to-cyber-black"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-cyber-grid opacity-20"></div>
+      
       {loading ? (
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#FF8B3E] mb-4"></div>
-            <p className="text-[#E5E5E5]">Analyzing contract...</p>
+        <div className="flex items-center justify-center h-screen relative z-10">
+          <div className="cyber-card rounded-lg p-8 flex flex-col items-center relative overflow-hidden">
+            {/* Animated scan line */}
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-cyan to-transparent animate-scan-sweep"></div>
+            
+            <div className="relative w-16 h-16 mb-4">
+              <div className="absolute inset-0 border-4 border-t-neon-cyan border-r-neon-cyan/50 border-b-neon-cyan/30 border-l-neon-cyan/10 rounded-full animate-spin" />
+              <div className="absolute inset-2 bg-cyber-black rounded-full flex items-center justify-center">
+                <Image
+                  src="/smart-audit-logo.svg"
+                  alt="Smart Audit Loading"
+                  width={32}
+                  height={32}
+                  className="animate-bounce-slow"
+                />
+              </div>
+            </div>
+            <p className="cyber-text-primary animate-neon-pulse">Analyzing contract...</p>
           </div>
         </div>
       ) : analysis ? (
-        <div className="max-w-5xl mx-auto py-8 px-6">
+        <div className="max-w-5xl mx-auto py-8 px-6 relative z-10">
           {/* Contract Info */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-white mb-4">Contract Analysis</h1>
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
+            <h1 className="text-2xl font-bold cyber-text-primary mb-4 animate-neon-pulse">Contract Analysis</h1>
+            <div className="flex items-center gap-2 cyber-text-secondary text-sm">
               <span>Contract:</span>
-              <code className="px-2 py-1 bg-[#252526] rounded text-[#CE9178]">
+              <code className="px-2 py-1 cyber-card rounded text-neon-orange">
                 {address?.slice(0, 6)}...{address?.slice(-4)}
               </code>
               <span>on</span>
-              <span className="capitalize">{chain}</span>
+              <span className="capitalize text-neon-cyan">{chain}</span>
             </div>
           </div>
 
           {/* Markdown Content */}
-          <div className="bg-[#252526] rounded-lg p-6 border border-[#333333]">
+          <div className="cyber-card rounded-lg p-6">
             <div className="prose prose-invert max-w-none
-                          prose-headings:text-[#E5E5E5]
-                          prose-h1:text-3xl prose-h1:mb-8
-                          prose-h2:text-2xl prose-h2:text-[#FF8B3E] prose-h2:mt-8 prose-h2:mb-4
-                          prose-h3:text-xl prose-h3:text-[#4EC9B0] prose-h3:mt-6 prose-h3:mb-3
-                          prose-p:text-gray-300 prose-p:leading-relaxed
-                          prose-strong:text-[#4EC9B0]
-                          prose-code:text-[#CE9178] prose-code:bg-[#1E1E1E]
-                          prose-li:text-gray-300
+                          prose-headings:cyber-text-primary
+                          prose-h1:text-3xl prose-h1:mb-8 prose-h1:animate-neon-pulse
+                          prose-h2:text-2xl prose-h2:text-neon-orange prose-h2:mt-8 prose-h2:mb-4
+                          prose-h3:text-xl prose-h3:text-neon-lime prose-h3:mt-6 prose-h3:mb-3
+                          prose-p:cyber-text-secondary prose-p:leading-relaxed
+                          prose-strong:text-neon-lime
+                          prose-code:text-neon-orange prose-code:bg-cyber-dark
+                          prose-li:cyber-text-secondary
                           [&_ul]:mt-2 [&_ul]:mb-4 [&_ul]:pl-6
                           [&_li]:my-1">
               <ReactMarkdown>{analysis.analysis}</ReactMarkdown>
